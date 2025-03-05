@@ -1,27 +1,234 @@
 .pdfInput {
-    padding: 8px;
-    border: 1px solid #ccc;
-    width: calc(100% - 10px);
-    height: 30px;
-    margin: 0 10px 0px 10px;
-    border-radius: 4px;
+    flex: 1;
+    padding: 0.875rem 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-primary);
+    transition: var(--transition);
+    margin-right: 1.25rem;
+    font-size: 1rem;
+    box-shadow: var(--shadow-inner);
 }
 
 .pdfRow {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    margin: 10px 10px 0px 10px;
-    padding: 5px;
+    padding: 1.25rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.selectedRow {
+    background-color: rgba(79, 70, 229, 0.05);
+    border-color: var(--primary-color);
+}
+
+.selectedRow::before {
+    opacity: 1;
+}
+
+.pdfRow:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    z-index: 2;
+}
+
+.pdfRow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--bg-gradient);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.pdfRow:hover::before {
+    opacity: 1;
+}
+
+.pdfCheckbox {
+    margin-right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-color);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--bg-primary);
+    cursor: pointer;
+    position: relative;
+    transition: var(--transition);
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.pdfCheckbox:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-outline);
+}
+
+.pdfCheckbox:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.pdfCheckbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.pdfInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-outline);
+}
+
+.viewPdfLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-tertiary);
+    margin-right: 0.875rem;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.viewPdfLink::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-gradient);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 0;
+}
+
+.viewPdfLink:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.viewPdfLink:hover::before {
+    opacity: 1;
+}
+
+.viewPdfLink img {
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.viewPdfLink:hover img {
+    filter: brightness(0) invert(1);
 }
 
 .deleteBtn {
     background: none;
-    border: 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
     cursor: pointer;
-    transition: color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.deleteBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    opacity: 0;
+    transition: var(--transition);
+    z-index: 0;
 }
 
 .deleteBtn:hover {
-    color: red;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.deleteBtn:hover::before {
+    opacity: 1;
+}
+
+.deleteBtn img {
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.deleteBtn:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.checkboxContainer {
+    position: relative;
+    margin-right: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkboxLabel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.checkingIndicator {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(79, 70, 229, 0.3);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.pdfActions {
+    display: flex;
+    align-items: center;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
